@@ -5,3 +5,8 @@
 body {
   margin: 0;
 }
+
+.main{
+  /* TODO: use tailwind theme for this */
+  background-color: #F9FAFD;
+}
