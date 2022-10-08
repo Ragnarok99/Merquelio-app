@@ -306,7 +306,7 @@ const CartDetails = () => {
   return (
     <Main>
       <h1 className="text-center py-10 px-2 text-xl font-medium">Detalle</h1>
-      <aside className="hidden xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200">
+      <aside className="xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200">
         <div className="px-6 pt-6 pb-4">
           <h2 className="text-lg font-medium text-gray-900">Directory</h2>
           <p className="mt-1 text-sm text-gray-600">

@@ -1,6 +1,11 @@
-interface Props {}
+import { Link } from "react-router-dom";
 
-const Card = (props: Props) => {
+interface Props {
+  id: string;
+  description: string;
+}
+
+const Card = ({ id }: Props) => {
   return (
     <div className="w-full max-w-sm bg-white rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-end px-4 pt-4">
@@ -76,12 +81,12 @@ const Card = (props: Props) => {
           veniam natus expedita delectus debitis!
         </p>
         <div className="flex mt-4 space-x-3 md:mt-6">
-          <a
-            href="#"
+          <Link
+            to={`cart/${id}`}
             className="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Ver
-          </a>
+          </Link>
         </div>
       </div>
     </div>

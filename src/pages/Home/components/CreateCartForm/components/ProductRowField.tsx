@@ -44,7 +44,7 @@ const ProductRowField = ({ name }: Props) => {
               />
             </div>
             <button
-              className="col-span-2 mt-[25px]"
+              className="col-span-2 mt-[28px]"
               onClick={() => remove(index)}
             >
               <XCircleIcon
