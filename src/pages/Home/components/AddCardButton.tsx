@@ -1,7 +1,7 @@
 import { PlusCircleIcon } from "@heroicons/react/outline";
 
 interface Props {
-  onClick: (event: any) => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const AddCardButton = ({ onClick }: Props) => {

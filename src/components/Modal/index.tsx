@@ -5,9 +5,15 @@ interface Props {
   onClose: () => void;
   isOpen: boolean;
   children: React.ReactNode;
+  modalSize?: string;
 }
 
-const Modal = ({ onClose, isOpen, children }: Props) => {
+const Modal = ({
+  onClose,
+  isOpen,
+  children,
+  modalSize = "max-w-md",
+}: Props) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -34,10 +40,12 @@ const Modal = ({ onClose, isOpen, children }: Props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel
+                className={`w-full ${modalSize} transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all`}
+              >
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
+                  className="text-lg font-semibold leading-6 text-gray-900"
                 >
                   Crea un carrito de compras
                 </Dialog.Title>
