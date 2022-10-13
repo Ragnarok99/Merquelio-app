@@ -1,4 +1,4 @@
-import { PlusCircleIcon } from "@heroicons/react/outline";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   onClick: React.MouseEventHandler<HTMLButtonElement>;

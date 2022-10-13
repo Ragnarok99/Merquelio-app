@@ -1,4 +1,4 @@
-import { XCircleIcon } from "@heroicons/react/outline";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 interface Props {

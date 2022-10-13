@@ -17,7 +17,7 @@ const CreateCartForm = ({ onSuccess }: Props) => {
     onMutate: async (variables) => {
       await queryClient.cancelQueries([RQQueryKeys.carts]);
 
-      const optimisticTodo = {
+      const optimisticNewCart = {
         id: v4(),
         name: variables.name,
         products: variables.products,
@@ -25,22 +25,22 @@ const CreateCartForm = ({ onSuccess }: Props) => {
 
       queryClient.setQueryData([RQQueryKeys.carts], (old: any) => [
         ...old,
-        optimisticTodo,
+        optimisticNewCart,
       ]);
 
-      return { optimisticTodo };
+      return { optimisticNewCart };
     },
     onSuccess: (result, variables, context) => {
       queryClient.setQueryData([RQQueryKeys.carts], (old: any) =>
-        old.map((todo: any) =>
-          todo.id === context?.optimisticTodo.id ? result : todo
+        old.map((cart: any) =>
+          cart.id === context?.optimisticNewCart.id ? result : cart
         )
       );
       onSuccess();
     },
     onError: (error, variables, context) => {
       queryClient.setQueryData([RQQueryKeys.carts], (old: any) =>
-        old.filter((todo: any) => todo.id !== context?.optimisticTodo.id)
+        old.filter((cart: any) => cart.id !== context?.optimisticNewCart.id)
       );
     },
     retry: 3,
