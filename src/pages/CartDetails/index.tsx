@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useParams } from "react-router-dom";
 
@@ -26,7 +26,9 @@ const CartDetails = () => {
     search,
   });
 
-  const { control, getValues, reset } = useForm();
+  let callRef = useRef<any>();
+
+  const { control, reset, getValues } = useForm();
 
   useEffect(() => {
     reset({
@@ -36,9 +38,26 @@ const CartDetails = () => {
     });
   }, [data]);
 
-  console.log({ values: getValues() });
+  const handleFieldsUpdate = () => {
+    const products = getValues("products");
+    if (callRef.current) {
+      clearTimeout(callRef.current);
+    }
+    callRef.current = setTimeout(() => {
+      mutation.mutate({
+        data: { name: data.name, products: Object.values(products) },
+        cartId: String(id),
+      });
+    }, 2000);
 
-  const mutate = useMutation(updateShoppingCart, {
+    return () => {
+      if (callRef.current) {
+        clearTimeout(callRef.current);
+      }
+    };
+  };
+
+  const mutation = useMutation(updateShoppingCart, {
     onMutate: async (variables) => {
       await queryClient.cancelQueries([RQQueryKeys.carts]);
 
@@ -146,10 +165,14 @@ const CartDetails = () => {
                                 name={`products.[${product.id}].name`}
                                 defaultValue=""
                                 control={control}
-                                render={({ field }) => (
+                                render={({ field: { onChange, ...field } }) => (
                                   <input
                                     type="text"
                                     className="outline-none"
+                                    onChange={(e) => {
+                                      onChange(e);
+                                      handleFieldsUpdate();
+                                    }}
                                     {...field}
                                   />
                                 )}
