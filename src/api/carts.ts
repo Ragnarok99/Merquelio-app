@@ -28,3 +28,9 @@ export const getShoppingCartById = async (id: string) => {
 
   return data;
 };
+
+export const searchShoppingCart = async (id: string) => {
+  const { data } = await client.get(`/shopping-carts/${id}/search`);
+
+  return data;
+};
