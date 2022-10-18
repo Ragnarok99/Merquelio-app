@@ -1,13 +1,14 @@
-import { v4 } from "uuid";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { v4 } from "uuid";
+import { Tab } from "@headlessui/react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useParams } from "react-router-dom";
-
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { groupByStartingLetter } from "../../utils/groupByStartingLetter";
 import {
   getShoppingCartById,
+  orderShoppingCart,
   searchShoppingCart,
   updateShoppingCart,
 } from "../../api";
@@ -15,7 +16,6 @@ import { RQQueryKeys } from "../../constants";
 import { Main } from "../../layouts";
 import { Controller, useForm } from "react-hook-form";
 import { Product } from "../../types";
-import { Tab } from "@headlessui/react";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -29,8 +29,12 @@ const CartDetails = () => {
   const [search, setSearch] = useState("");
   const [viewSearch, setViewSearch] = useState(false);
 
-  const cart = useQuery([RQQueryKeys.cart, id], () =>
-    getShoppingCartById(String(id))
+  const cart = useQuery(
+    [RQQueryKeys.cart, id],
+    () => getShoppingCartById(String(id)),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 
   const cartSearch = useQuery(
@@ -38,6 +42,7 @@ const CartDetails = () => {
     () => searchShoppingCart(String(id)),
     {
       enabled: viewSearch,
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -105,6 +110,9 @@ const CartDetails = () => {
     retry: 3,
   });
 
+  // TODO: this should refecth the orders on the future
+  const orderMutation = useMutation(orderShoppingCart);
+
   const handleFilter = (event: ChangeEvent<HTMLInputElement>) =>
     setSearch(event.target.value);
 
@@ -117,141 +125,8 @@ const CartDetails = () => {
       <h1 className="text-center py-10 px-2 text-xl font-medium">
         {cart.data?.name}
       </h1>
-      <div className="relative z-0 flex flex-1 overflow-hidden">
-        {viewSearch && (
-          <section className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last">
-            {/* Breadcrumb */}
-            {/* <nav
-            className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
-            aria-label="Breadcrumb"
-          >
-            <a
-              href="#"
-              className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
-            > */}
-            {/* <ChevronLeftIcon className="-ml-2 h-5 w-5 text-gray-400" aria-hidden="true" /> */}
-            {/* <span>Directory</span>
-            </a>
-          </nav> */}
-
-            <article>
-              {/* Profile header */}
-              <div>
-                <div>
-                  {/* <img className="h-32 w-full object-cover lg:h-48" src={profile.coverImageUrl} alt="" /> */}
-                </div>
-                <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                  <div className="-mt-12 sm:flex sm:items-end sm:space-x-5">
-                    <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-                      <div className="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
-                        <h1 className="truncate text-2xl font-bold text-gray-900">
-                          Resultados
-                        </h1>
-                      </div>
-                      <div className="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
-                        >
-                          {/* <EnvelopeIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true" /> */}
-                          <span>Comprar carrito</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
-                    <h1 className="truncate text-2xl font-bold text-gray-900">
-                      Resultados
-                    </h1>
-                  </div>
-                </div>
-              </div>
-
-              {/* Tabs */}
-              <div className="mt-6 sm:mt-2 2xl:mt-5">
-                <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                  <nav className="flex space-x-8" aria-label="Tabs">
-                    {/* TABS */}
-
-                    <div className="w-full px-2 py-16 sm:px-0">
-                      <Tab.Group>
-                        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-                          {TABS.map((category) => (
-                            <Tab
-                              key={category}
-                              className={({ selected }) =>
-                                classNames(
-                                  "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
-                                  "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                                  selected
-                                    ? "bg-white shadow"
-                                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                                )
-                              }
-                            >
-                              {category}
-                            </Tab>
-                          ))}
-                        </Tab.List>
-                        <Tab.Panels className="mt-2">
-                          <Tab.Panel
-                            className={classNames(
-                              "rounded-xl bg-white p-3",
-                              "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                            )}
-                          >
-                            <div className="grid gap-4 grid-cols-3">
-                              {cartSearch?.data?.found?.map(
-                                ({ image, name, price }) => (
-                                  <div
-                                    key={name}
-                                    className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-sm dark:border-gray-700 dark:bg-gray-800"
-                                  >
-                                    <img
-                                      className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-24 md:rounded-none md:rounded-l-lg"
-                                      src={image}
-                                      alt={name}
-                                    />
-                                    <div className="flex flex-col justify-between p-4 leading-normal">
-                                      <h3 className="font-semibold text-sm tracking-tight text-gray-700 dark:text-white">
-                                        {name}
-                                      </h3>
-                                      <span className="font-normal text-sm text-gray-500 dark:text-gray-400">
-                                        precio {price}
-                                      </span>
-                                    </div>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </Tab.Panel>
-                        </Tab.Panels>
-                        <Tab.Panel
-                          className={classNames(
-                            "rounded-xl bg-white p-3",
-                            "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                          )}
-                        >
-                          <div className="grid gap-4 grid-cols-1">
-                            {cartSearch?.data?.notFound?.map((item) => (
-                              <div
-                                key={item}
-                                className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-sm dark:border-gray-700 dark:bg-gray-800"
-                              >
-                                <span className="p-2">{item}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </Tab.Panel>
-                      </Tab.Group>
-                    </div>
-                  </nav>
-                </div>
-              </div>
-            </article>
-          </section>
-        )}
-        <aside className="xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200">
+      <div className="flex">
+        <aside className="hidden lg:block xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200">
           <div className="px-6 pt-6 pb-4">
             <h2 className="text-lg font-medium text-gray-900">Productos</h2>
             <p className="mt-1 text-sm text-gray-600">
@@ -281,12 +156,12 @@ const CartDetails = () => {
                 </div>
               </div>
               <button
-                // disabled={mutation.isLoading}
+                disabled={cartSearch.isFetching}
                 onClick={handleSearchProducts}
                 type="button"
                 className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
               >
-                {false ? (
+                {cartSearch.isFetching ? (
                   <>
                     <svg
                       aria-hidden="true"
@@ -379,6 +254,158 @@ const CartDetails = () => {
               ))}
           </nav>
         </aside>
+        <div className="relative z-0 flex flex-1 overflow-hidden">
+          {viewSearch && (
+            <section className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last">
+              {/* Breadcrumb */}
+              {/* <nav
+            className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
+            aria-label="Breadcrumb"
+          >
+            <a
+              href="#"
+              className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900"
+            > */}
+              {/* <ChevronLeftIcon className="-ml-2 h-5 w-5 text-gray-400" aria-hidden="true" /> */}
+              {/* <span>Directory</span>
+            </a>
+          </nav> */}
+
+              <article>
+                {/* Profile header */}
+                <div>
+                  <div>
+                    {/* <img className="h-32 w-full object-cover lg:h-48" src={profile.coverImageUrl} alt="" /> */}
+                  </div>
+                  <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                    <div className="sm:flex sm:items-end sm:space-x-5">
+                      <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                        <div className="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
+                          <h1 className="truncate text-2xl font-bold text-gray-900">
+                            Resultados
+                          </h1>
+                        </div>
+                        <div className="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+                          <button
+                            type="button"
+                            onClick={() => orderMutation.mutate(String(id))}
+                            className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+                          >
+                            {/* <EnvelopeIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true" /> */}
+                            <span>Comprar carrito</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
+                      <h1 className="truncate text-2xl font-bold text-gray-900">
+                        Resultados
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tabs */}
+                <div className="mt-6 sm:mt-2 2xl:mt-5">
+                  <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                    <nav className="flex space-x-8" aria-label="Tabs">
+                      {/* TABS */}
+
+                      <div className="w-full px-2 py-16 sm:px-0">
+                        <Tab.Group>
+                          <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+                            {TABS.map((category) => (
+                              <Tab
+                                key={category}
+                                className={({ selected }) =>
+                                  classNames(
+                                    "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
+                                    "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                                    selected
+                                      ? "bg-white shadow"
+                                      : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                                  )
+                                }
+                              >
+                                {category}
+                              </Tab>
+                            ))}
+                          </Tab.List>
+                          <Tab.Panels className="mt-2">
+                            <Tab.Panel
+                              className={classNames(
+                                "rounded-xl bg-white p-3",
+                                "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                              )}
+                            >
+                              {cartSearch.isRefetching ||
+                              cartSearch.isLoading ? (
+                                <div
+                                  role="status"
+                                  className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-pulse"
+                                >
+                                  <div className="bg-gray-200 rounded-lg dark:bg-gray-700 h-[112px] md:max-w-sm"></div>
+                                  <div className="bg-gray-200 rounded-lg dark:bg-gray-700 h-[112px] md:max-w-sm"></div>
+                                  <div className="bg-gray-200 rounded-lg dark:bg-gray-700 h-[112px] md:max-w-sm"></div>
+                                  <div className="bg-gray-200 rounded-lg dark:bg-gray-700 h-[112px] md:max-w-sm"></div>
+                                  <div className="bg-gray-200 rounded-lg dark:bg-gray-700 h-[112px] md:max-w-sm"></div>
+                                  <div className="bg-gray-200 rounded-lg dark:bg-gray-700 h-[112px] md:max-w-sm"></div>
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              ) : (
+                                <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                                  {cartSearch?.data?.found?.map(
+                                    ({ image, name, price }) => (
+                                      <div
+                                        key={name}
+                                        className="flex items-center bg-white rounded-lg border shadow-md flex-row md:max-w-sm dark:border-gray-700 dark:bg-gray-800"
+                                      >
+                                        <img
+                                          className="object-cover  rounded-t-lg h-auto w-24 md:rounded-none md:rounded-l-lg"
+                                          src={image}
+                                          alt={name}
+                                        />
+                                        <div className="flex flex-col justify-start w-full md:justify-between p-4 leading-normal">
+                                          <h3 className="font-semibold text-sm tracking-tight text-gray-700 dark:text-white">
+                                            {name}
+                                          </h3>
+                                          <span className="font-normal text-sm text-gray-500 dark:text-gray-400">
+                                            precio {price}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+                              )}
+                            </Tab.Panel>
+                          </Tab.Panels>
+                          <Tab.Panel
+                            className={classNames(
+                              "rounded-xl bg-white p-3",
+                              "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                            )}
+                          >
+                            <div className="grid gap-4 grid-cols-1">
+                              {cartSearch?.data?.notFound?.map((item) => (
+                                <div
+                                  key={item}
+                                  className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-sm dark:border-gray-700 dark:bg-gray-800"
+                                >
+                                  <span className="p-2">{item}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </Tab.Panel>
+                        </Tab.Group>
+                      </div>
+                    </nav>
+                  </div>
+                </div>
+              </article>
+            </section>
+          )}
+        </div>
       </div>
     </Main>
   );

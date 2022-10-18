@@ -16,12 +16,8 @@ interface UpdateShoppingCartArgs {
   data: Omit<Cart, "id" | "created_at" | "updated_at">;
 }
 
-export const updateShoppingCart = ({
-  cartId,
-  data,
-}: UpdateShoppingCartArgs) => {
-  return client.patch(`/shopping-carts/${cartId}`, data);
-};
+export const updateShoppingCart = ({ cartId, data }: UpdateShoppingCartArgs) =>
+  client.patch(`/shopping-carts/${cartId}`, data);
 
 export const getShoppingCartById = async (id: string) => {
   const { data } = await client.get(`/shopping-carts/${id}`);
@@ -34,3 +30,6 @@ export const searchShoppingCart = async (id: string) => {
 
   return data;
 };
+
+export const orderShoppingCart = (id: string) =>
+  client.post(`/shopping-carts/${id}/order`);
