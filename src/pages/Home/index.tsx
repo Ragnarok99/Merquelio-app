@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { Modal } from "../../components";
+import { Modal, CreateCartForm } from "../../components";
 import { RQQueryKeys } from "../../constants";
 import { getShoppingCarts } from "../../api";
 import { Main } from "../../layouts";
 import { Cart } from "../../types";
 
-import { AddCardButton, Card, CreateCartForm } from "./components";
+import { AddCardButton, Card } from "./components";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +29,11 @@ const Home = () => {
         ))}
         <AddCardButton onClick={() => setIsOpen(true)} />
       </section>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal
+        title="Crea un carrito de compras"
+        isOpen={isOpen}
+        onClose={onClose}
+      >
         <CreateCartForm onSuccess={onClose} />
       </Modal>
     </Main>

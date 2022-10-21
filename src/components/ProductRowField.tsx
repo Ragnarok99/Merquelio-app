@@ -16,9 +16,9 @@ const ProductRowField = ({ name }: Props) => {
             <div className="col-span-7">
               <label
                 htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
               >
-                Producto
+                Producto {index + 1}
               </label>
               <input
                 type="name"
@@ -31,7 +31,7 @@ const ProductRowField = ({ name }: Props) => {
             <div className="col-span-3">
               <label
                 htmlFor="quatity"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
               >
                 Cantidad
               </label>

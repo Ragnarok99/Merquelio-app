@@ -6,6 +6,7 @@ interface Props {
   isOpen: boolean;
   children: React.ReactNode;
   modalSize?: string;
+  title: string;
 }
 
 const Modal = ({
@@ -13,10 +14,11 @@ const Modal = ({
   isOpen,
   children,
   modalSize = "max-w-md",
+  title,
 }: Props) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" className="relative z-30" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -26,7 +28,7 @@ const Modal = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
+          <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-25" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -47,7 +49,7 @@ const Modal = ({
                   as="h3"
                   className="text-lg font-semibold leading-6 text-gray-900"
                 >
-                  Crea un carrito de compras
+                  {title}
                 </Dialog.Title>
                 {children}
               </Dialog.Panel>

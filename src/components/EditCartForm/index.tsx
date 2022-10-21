@@ -1,53 +1,63 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import { v4 } from "uuid";
 
-import { createShoppingCart } from "../../../../api";
-import { RQQueryKeys } from "../../../../constants";
-import { ProductRowField } from "./components";
+import { getShoppingCartById, updateShoppingCart } from "../../api";
+import { RQQueryKeys } from "../../constants";
+import ProductRowField from "../ProductRowField";
 
 interface Props {
   onSuccess: () => void;
 }
 
-const CreateCartForm = ({ onSuccess }: Props) => {
+const EditCartForm = ({ onSuccess }: Props) => {
+  const { id } = useParams();
   const queryClient = useQueryClient();
+
   const methods = useForm();
-  const mutation = useMutation(createShoppingCart, {
+
+  const mutation = useMutation(updateShoppingCart, {
     onMutate: async (variables) => {
       await queryClient.cancelQueries([RQQueryKeys.carts]);
 
-      const optimisticNewCart = {
+      const optimisticTodo = {
         id: v4(),
-        name: variables.name,
-        products: variables.products,
+        name: variables.data.name,
+        products: variables.data.products,
       };
 
-      queryClient.setQueryData([RQQueryKeys.carts], (old: any) => [
-        ...old,
-        optimisticNewCart,
-      ]);
+      queryClient.setQueryData([RQQueryKeys.cart, id], () => optimisticTodo);
 
-      return { optimisticNewCart };
+      return { optimisticTodo };
     },
     onSuccess: (result, variables, context) => {
-      queryClient.setQueryData([RQQueryKeys.carts], (old: any) =>
-        old.map((cart: any) =>
-          cart.id === context?.optimisticNewCart.id ? result : cart
-        )
-      );
-      onSuccess();
+      queryClient.setQueryData([RQQueryKeys.carts], (old: any) => result);
+      cart.refetch();
     },
     onError: (error, variables, context) => {
-      queryClient.setQueryData([RQQueryKeys.carts], (old: any) =>
-        old.filter((cart: any) => cart.id !== context?.optimisticNewCart.id)
-      );
+      queryClient.setQueryData([RQQueryKeys.carts], (old: any) => old);
     },
     retry: 3,
   });
 
+  const cart = useQuery(
+    [RQQueryKeys.cart, id],
+    () => getShoppingCartById(String(id)),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  useEffect(() => {
+    methods.reset(cart.data);
+  }, [cart.data]);
+
+  console.log(methods.formState.errors);
+
   const onSubmit = (data: any) => {
-    mutation.mutate(data);
+    mutation.mutate({ cartId: String(id), data });
   };
 
   return (
@@ -99,7 +109,7 @@ const CreateCartForm = ({ onSuccess }: Props) => {
               <span>Loading...</span>{" "}
             </>
           ) : (
-            <span>Crear carrito</span>
+            <span>Guardar carrito</span>
           )}
         </button>
       </form>
@@ -107,4 +117,4 @@ const CreateCartForm = ({ onSuccess }: Props) => {
   );
 };
 
-export default CreateCartForm;
+export default EditCartForm;
