@@ -84,8 +84,8 @@ const CartDetails = () => {
         </h1>
       </div>
       <div className="flex">
-        {((isSmallDevice && screen === "search") || !isSmallDevice) && (
-          <aside className="lg:block xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200">
+        {((isSmallDevice && screen === "home") || !isSmallDevice) && (
+          <aside className="lg:block xl:flex xl:flex-col flex-shrink-0 w-full md:w-96 border-r border-gray-200">
             <ProductList
               onViewSearch={setViewSearch}
               viewSearch={viewSearch}
@@ -93,7 +93,7 @@ const CartDetails = () => {
             />
           </aside>
         )}
-        {((isSmallDevice && screen === "order") || !isSmallDevice) && (
+        {((isSmallDevice && screen === "search") || !isSmallDevice) && (
           <section className="relative z-0 flex flex-1 overflow-hidden">
             {viewSearch && (
               <div className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last">
@@ -165,7 +165,7 @@ const CartDetails = () => {
                                   cartSearch.isLoading ? (
                                     <div
                                       role="status"
-                                      className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-pulse"
+                                      className="grid gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 animate-pulse"
                                     >
                                       <div className="bg-gray-200 rounded-lg dark:bg-gray-700 h-[112px] md:max-w-sm"></div>
                                       <div className="bg-gray-200 rounded-lg dark:bg-gray-700 h-[112px] md:max-w-sm"></div>
@@ -314,21 +314,39 @@ const CartDetails = () => {
       <div className="fixed bottom-0 flex h-14 w-full items-center justify-between bg-white px-4 text-gray-700 shadow-[0_-2px_3px_rgba(0,0,0,0.6)] shadow-[0_-2px_3px_rgba(0,0,0,0.06)] sm:h-16 md:hidden">
         <button
           onClick={handleScreenChange("home")}
-          className="flex w-[22px] flex-shrink-0 flex-col items-center justify-center outline-none focus:outline-none"
+          className={`flex flex-shrink-0 flex-col p-2 w-[36px] items-center justify-center outline-none focus:outline-none ${
+            screen === "home" ? "bg-black rounded-lg" : ""
+          }`}
         >
-          <HomeIcon />
+          <HomeIcon
+            strokeWidth={3}
+            className={screen === "home" ? "stroke-white" : "stroke-slate-800"}
+          />
         </button>
         <button
           onClick={handleScreenChange("search")}
-          className="flex w-[22px] flex-shrink-0 flex-col items-center justify-center outline-none focus:outline-none"
+          className={`flex flex-shrink-0 flex-col p-2 w-[36px] items-center justify-center outline-none focus:outline-none ${
+            screen === "search" ? "bg-black rounded-lg" : ""
+          }`}
         >
-          <MagnifyingGlassIcon />
+          <MagnifyingGlassIcon
+            className={`${
+              screen === "search"
+                ? "stroke-white fill-white"
+                : "stroke-gray-800"
+            }`}
+          />
         </button>
         <button
           onClick={handleScreenChange("order")}
-          className="flex w-[22px] flex-shrink-0 flex-col items-center justify-center outline-none focus:outline-none"
+          className={`flex flex-shrink-0 flex-col p-2 w-[36px] items-center justify-center outline-none focus:outline-none ${
+            screen === "order" ? "bg-black rounded-lg" : ""
+          }`}
         >
-          <ShoppingBagIcon />
+          <ShoppingBagIcon
+            strokeWidth={3}
+            className={screen === "order" ? "stroke-white" : "stroke-slate-800"}
+          />
         </button>
       </div>
     </Main>
