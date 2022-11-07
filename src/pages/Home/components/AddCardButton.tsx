@@ -8,7 +8,7 @@ const AddCardButton = ({ onClick }: Props) => {
   return (
     <button
       onClick={onClick}
-      className="w-full max-w-sm bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+      className="w-full sm:max-w-sm bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
     >
       <div className="flex justify-center items-center h-full">
         <div className="flex gap-2 flex-col">

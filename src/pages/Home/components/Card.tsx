@@ -7,7 +7,7 @@ interface Props {
 
 const Card = ({ id }: Props) => {
   return (
-    <div className="w-full max-w-sm bg-white rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full sm:max-w-sm bg-white rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-end px-4 pt-4">
         <button
           id="dropdownButton"

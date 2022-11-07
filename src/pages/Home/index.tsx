@@ -23,9 +23,9 @@ const Home = () => {
       <h1 className="text-center py-10 px-2 text-xl font-medium">
         Mis carritos de compra
       </h1>
-      <section className="flex gap-4">
+      <section className="flex flex-col sm:flex-row gap-4 px-2">
         {data?.map((cart) => (
-          <Card id={cart.id} description="" />
+          <Card id={cart.id} key={cart.id} description="" />
         ))}
         <AddCardButton onClick={() => setIsOpen(true)} />
       </section>
