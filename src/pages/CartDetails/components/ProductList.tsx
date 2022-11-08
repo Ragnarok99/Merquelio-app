@@ -116,8 +116,10 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
   return (
     <>
       <div className="px-6 pt-6 pb-4">
-        <h2 className="text-lg font-medium text-gray-900">Productos</h2>
-        <p className="mt-1 text-sm text-gray-600">
+        <h2 className="text-lg font-medium text-gray-700 dark:text-white">
+          Productos
+        </h2>
+        <p className="mt-1 text-sm text-gray-700 dark:text-gray-400">
           Busca productos en este carrito
         </p>
         <form className="mt-6 space-y-4">
@@ -135,7 +137,7 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
               <input
                 type="search"
                 id="search"
-                className="block h-full w-full rounded-md border-gray-300 pl-10 pr-2 focus:border-pink-500 focus:ring-pink-500 sm:text-sm"
+                className="block h-full w-full rounded-md focus-visible:border-gray-300 dark:bg-gray-800 dark:text-gray-500 dark:border-gray-100 border-gray-300 pl-10 pr-2 sm:text-sm"
                 placeholder="Buscar"
                 name="search"
                 value={search}
@@ -168,7 +170,7 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
                     fill="currentColor"
                   />
                 </svg>
-                <span>Loading...</span>{" "}
+                <span>Loading...</span>
               </>
             ) : (
               <span>Buscar carrito</span>
@@ -176,14 +178,17 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
           </button>
         </form>
       </div>
-      <nav className="flex-1 min-h-0 overflow-y-auto" aria-label="Directory">
+      <nav
+        className="flex-1 min-h-0 h-1/2 overflow-y-auto"
+        aria-label="Directory"
+      >
         {directory &&
           Object.keys(directory).map((letter) => (
             <div key={letter} className="relative">
-              <div className="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
+              <div className="z-10 sticky top-0 border-t border-b border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 px-6 py-1 text-sm font-medium text-gray-500 dark:text-gray-400">
                 <h3>{letter}</h3>
               </div>
-              <ul role="list" className="relative z-0 divide-y divide-gray-200">
+              <ul role="list" className="relative z-0 divide-y divide-gray-500">
                 {directory[letter].map((product: Product) => (
                   <li key={product.id}>
                     <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500">
@@ -197,7 +202,7 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
                               render={({ field: { onChange, ...field } }) => (
                                 <input
                                   type="text"
-                                  className="outline-none w-full bg-transparent"
+                                  className="outline-none w-full bg-transparent text-gray-700 dark:text-gray-400"
                                   onChange={(e) => {
                                     onChange(e);
                                     handleFieldsUpdate();

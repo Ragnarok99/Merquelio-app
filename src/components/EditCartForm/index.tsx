@@ -106,7 +106,7 @@ const EditCartForm = ({ onSuccess }: Props) => {
                   fill="currentColor"
                 />
               </svg>
-              <span>Loading...</span>{" "}
+              <span>Loading...</span>
             </>
           ) : (
             <span>Guardar carrito</span>

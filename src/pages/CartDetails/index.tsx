@@ -68,9 +68,11 @@ const CartDetails = () => {
     <Main>
       <div className="hidden lg:grid grid-cols-3 py-10 px-2">
         <span>lgogo</span>
-        <h1 className="text-xl text-center font-medium">{cart.data?.name}</h1>
+        <h1 className="text-xl text-center font-medium text-gray-700 dark:text-white">
+          {cart.data?.name}
+        </h1>
       </div>
-      <div className="sticky grid grid-cols-3 items-center top-0 z-10 bg-gray-100 mx-2 lg:hidden">
+      <div className="sticky grid grid-cols-3 items-center top-0 z-10 bg-gray-100 dark:bg-gray-800 dark:text-gray-500 mx-2 lg:hidden">
         <button
           type="button"
           className="inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -85,7 +87,7 @@ const CartDetails = () => {
       </div>
       <div className="flex">
         {((isSmallDevice && screen === "home") || !isSmallDevice) && (
-          <aside className="lg:block xl:flex xl:flex-col flex-shrink-0 w-full md:w-96 border-r border-gray-200">
+          <aside className="lg:block xl:flex xl:flex-col flex-shrink-0 w-full md:w-96 border-r dark:border-gray-500 border-gray-200">
             <ProductList
               onViewSearch={setViewSearch}
               viewSearch={viewSearch}
@@ -103,7 +105,7 @@ const CartDetails = () => {
                       <div className="sm:flex sm:items-end sm:space-x-5">
                         <div className="flex mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                           <div className="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
-                            <h1 className="truncate text-2xl font-bold text-gray-900">
+                            <h1 className="truncate text-2xl font-bold text-gray-700 dark:text-white">
                               Resultados
                             </h1>
                           </div>
@@ -120,7 +122,7 @@ const CartDetails = () => {
                         </div>
                       </div>
                       <div className="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
-                        <h1 className="truncate text-2xl font-bold text-gray-900">
+                        <h1 className="truncate text-2xl font-bold text-gray-700 dark:text-white">
                           Resultados
                         </h1>
                       </div>
@@ -218,7 +220,9 @@ const CartDetails = () => {
                                     key={item}
                                     className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-sm dark:border-gray-700 dark:bg-gray-800"
                                   >
-                                    <span className="p-2">{item}</span>
+                                    <span className="p-2 text-gray-700 dark:text-gray-400">
+                                      {item}
+                                    </span>
                                   </div>
                                 ))}
                               </div>
@@ -311,41 +315,49 @@ const CartDetails = () => {
       >
         <EditCartForm onSuccess={onClose} />
       </Modal>
-      <div className="fixed bottom-0 flex h-14 w-full items-center justify-between bg-white px-4 text-gray-700 shadow-[0_-2px_3px_rgba(0,0,0,0.6)] shadow-[0_-2px_3px_rgba(0,0,0,0.06)] sm:h-16 md:hidden">
+      <div className="fixed bottom-0 flex h-14 w-full items-center justify-between dark:bg-gray-800 bg-white px-4 dark:text-white text-gray-700 shadow-[0_-2px_3px_rgba(0,0,0,0.6)] shadow-[0_-2px_3px_rgba(0,0,0,0.06)] sm:h-16 md:hidden">
         <button
           onClick={handleScreenChange("home")}
           className={`flex flex-shrink-0 flex-col p-2 w-[36px] items-center justify-center outline-none focus:outline-none ${
-            screen === "home" ? "bg-black rounded-lg" : ""
+            screen === "home" ? "bg-black dark:bg-gray-500 rounded-lg" : ""
           }`}
         >
           <HomeIcon
             strokeWidth={3}
-            className={screen === "home" ? "stroke-white" : "stroke-slate-800"}
+            className={
+              screen === "home"
+                ? "stroke-white"
+                : "stroke-slate-800 dark:stroke-white"
+            }
           />
         </button>
         <button
           onClick={handleScreenChange("search")}
           className={`flex flex-shrink-0 flex-col p-2 w-[36px] items-center justify-center outline-none focus:outline-none ${
-            screen === "search" ? "bg-black rounded-lg" : ""
+            screen === "search" ? "bg-black dark:bg-gray-500 rounded-lg" : ""
           }`}
         >
           <MagnifyingGlassIcon
             className={`${
               screen === "search"
                 ? "stroke-white fill-white"
-                : "stroke-gray-800"
+                : "stroke-slate-800 dark:stroke-white"
             }`}
           />
         </button>
         <button
           onClick={handleScreenChange("order")}
           className={`flex flex-shrink-0 flex-col p-2 w-[36px] items-center justify-center outline-none focus:outline-none ${
-            screen === "order" ? "bg-black rounded-lg" : ""
+            screen === "order" ? "bg-black dark:bg-gray-500 rounded-lg" : ""
           }`}
         >
           <ShoppingBagIcon
             strokeWidth={3}
-            className={screen === "order" ? "stroke-white" : "stroke-slate-800"}
+            className={
+              screen === "order"
+                ? "stroke-white"
+                : "stroke-slate-800 dark:stroke-white"
+            }
           />
         </button>
       </div>

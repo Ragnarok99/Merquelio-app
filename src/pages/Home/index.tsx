@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <Main>
-      <h1 className="text-center py-10 px-2 text-xl font-medium">
+      <h1 className="text-center py-10 px-2 text-xl font-medium text-gray-700 dark:text-gray-400">
         Mis carritos de compra
       </h1>
       <section className="flex flex-col sm:flex-row gap-4 px-2">
