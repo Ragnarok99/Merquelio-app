@@ -119,7 +119,7 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
         <h2 className="text-lg font-medium text-gray-700 dark:text-white">
           Productos
         </h2>
-        <p className="mt-1 text-sm text-gray-700 dark:text-gray-400">
+        <p className="mt-1 text-sm text-gray-700 dark:text-gray-200">
           Busca productos en este carrito
         </p>
         <form className="mt-6 space-y-4">
@@ -137,7 +137,7 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
               <input
                 type="search"
                 id="search"
-                className="block h-full w-full rounded-md focus-visible:border-gray-300 dark:bg-gray-800 dark:text-gray-500 dark:border-gray-100 border-gray-300 pl-10 pr-2 sm:text-sm"
+                className="block h-full w-full rounded-md focus-visible:border-gray-300 dark:bg-slate-900 dark:text-gray-400 dark:border-gray-100 border-gray-300 pl-10 pr-2 sm:text-sm"
                 placeholder="Buscar"
                 name="search"
                 value={search}
@@ -185,7 +185,7 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
         {directory &&
           Object.keys(directory).map((letter) => (
             <div key={letter} className="relative">
-              <div className="z-10 sticky top-0 border-t border-b border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-800 px-6 py-1 text-sm font-medium text-gray-500 dark:text-gray-400">
+              <div className="z-10 sticky top-0 border-t border-b border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-slate-900 px-6 py-1 text-sm font-medium text-gray-500 dark:text-gray-200">
                 <h3>{letter}</h3>
               </div>
               <ul role="list" className="relative z-0 divide-y divide-gray-500">
@@ -202,7 +202,7 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
                               render={({ field: { onChange, ...field } }) => (
                                 <input
                                   type="text"
-                                  className="outline-none w-full bg-transparent text-gray-700 dark:text-gray-400"
+                                  className="outline-none w-full bg-transparent text-gray-700 dark:text-gray-200"
                                   onChange={(e) => {
                                     onChange(e);
                                     handleFieldsUpdate();

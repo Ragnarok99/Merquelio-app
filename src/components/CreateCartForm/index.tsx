@@ -57,7 +57,7 @@ const CreateCartForm = ({ onSuccess }: Props) => {
           <div>
             <label
               htmlFor="cart_name"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100"
             >
               Nombre del carrito
             </label>

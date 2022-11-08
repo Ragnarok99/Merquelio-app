@@ -7,12 +7,12 @@ interface Props {
 
 const Card = ({ id }: Props) => {
   return (
-    <div className="w-full sm:max-w-sm bg-white rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full sm:max-w-sm bg-white rounded-lg border border-gray-200 dark:bg-slate-900 dark:border-gray-700">
       <div className="flex justify-end px-4 pt-4">
         <button
           id="dropdownButton"
           data-dropdown-toggle="dropdown"
-          className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
+          className="inline-block text-gray-500 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
           type="button"
         >
           <span className="sr-only">Open dropdown</span>
@@ -73,10 +73,10 @@ const Card = ({ id }: Props) => {
           src="/pngs/cart.png"
           alt="cart"
         />
-        <h5 className="mb-1 text-xl font-semibold text-gray-500 dark:text-gray-400">
+        <h5 className="mb-1 text-xl font-semibold text-gray-500 dark:text-gray-200">
           Mercado completo
         </h5>
-        <p className="text-sm px-4 text-left text-gray-500 dark:text-gray-400">
+        <p className="text-sm px-4 text-left text-gray-500 dark:text-gray-200">
           Lorem ipsum dolor sit amet consectetur adiicing elit. Aliquid enim
           veniam natus expedita delectus debitis!
         </p>

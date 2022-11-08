@@ -72,7 +72,7 @@ const CartDetails = () => {
           {cart.data?.name}
         </h1>
       </div>
-      <div className="sticky grid grid-cols-3 items-center top-0 z-10 bg-gray-100 dark:bg-gray-800 dark:text-gray-500 mx-2 lg:hidden">
+      <div className="sticky grid grid-cols-3 items-center top-0 z-10 bg-gray-100 dark:bg-slate-900 dark:text-gray-400 mx-2 lg:hidden">
         <button
           type="button"
           className="inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -185,7 +185,7 @@ const CartDetails = () => {
                                         ({ image, name, price }) => (
                                           <div
                                             key={name}
-                                            className="flex items-center bg-white rounded-lg border shadow-md flex-row md:max-w-sm dark:border-gray-700 dark:bg-gray-800"
+                                            className="flex items-center bg-white rounded-lg border shadow-md flex-row md:max-w-sm dark:border-gray-700 dark:bg-slate-900"
                                           >
                                             <img
                                               className="object-cover rounded-t-lg h-auto w-24 md:rounded-none md:rounded-l-lg"
@@ -196,7 +196,7 @@ const CartDetails = () => {
                                               <h3 className="font-semibold text-sm tracking-tight text-gray-700 dark:text-white">
                                                 {name}
                                               </h3>
-                                              <span className="font-normal text-sm text-gray-500 dark:text-gray-400">
+                                              <span className="font-normal text-sm text-gray-500 dark:text-gray-200">
                                                 precio {price}
                                               </span>
                                             </div>
@@ -218,9 +218,9 @@ const CartDetails = () => {
                                 {cartSearch?.data?.notFound?.map((item) => (
                                   <div
                                     key={item}
-                                    className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-sm dark:border-gray-700 dark:bg-gray-800"
+                                    className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-sm dark:border-gray-700 dark:bg-slate-900"
                                   >
-                                    <span className="p-2 text-gray-700 dark:text-gray-400">
+                                    <span className="p-2 text-gray-700 dark:text-gray-200">
                                       {item}
                                     </span>
                                   </div>
@@ -315,7 +315,7 @@ const CartDetails = () => {
       >
         <EditCartForm onSuccess={onClose} />
       </Modal>
-      <div className="fixed bottom-0 flex h-14 w-full items-center justify-between dark:bg-gray-800 bg-white px-4 dark:text-white text-gray-700 shadow-[0_-2px_3px_rgba(0,0,0,0.6)] shadow-[0_-2px_3px_rgba(0,0,0,0.06)] sm:h-16 md:hidden">
+      <div className="fixed bottom-0 flex h-14 w-full items-center justify-between dark:bg-slate-900 bg-white px-4 dark:text-white text-gray-700 shadow-[0_-2px_3px_rgba(0,0,0,0.6)] shadow-[0_-2px_3px_rgba(0,0,0,0.06)] sm:h-16 md:hidden">
         <button
           onClick={handleScreenChange("home")}
           className={`flex flex-shrink-0 flex-col p-2 w-[36px] items-center justify-center outline-none focus:outline-none ${
