@@ -81,7 +81,7 @@ const CartDetails = () => {
           <span className="sr-only">Open sidebar</span>
           <Bars3Icon className="h-6 w-6" aria-hidden="true" />
         </button>
-        <h1 className="pointer-events-none absolute w-full text-xl text-center font-medium">
+        <h1 className="pointer-events-none absolute w-full text-xl text-center font-medium text-gray-700 dark:text-white">
           {cart.data?.name}
         </h1>
       </div>
@@ -143,7 +143,7 @@ const CartDetails = () => {
                                   key={category}
                                   className={({ selected }) =>
                                     classNames(
-                                      "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
+                                      "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700",
                                       "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                                       selected
                                         ? "bg-white shadow"
@@ -158,7 +158,7 @@ const CartDetails = () => {
                             <Tab.Panels className="mt-2">
                               <Tab.Panel
                                 className={classNames(
-                                  "rounded-xl bg-white p-3",
+                                  "rounded-xl bg-white dark:bg-slate-900 p-3",
                                   "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
                                 )}
                               >
@@ -188,7 +188,7 @@ const CartDetails = () => {
                                             className="flex items-center bg-white rounded-lg border shadow-md flex-row md:max-w-sm dark:border-gray-700 dark:bg-slate-900"
                                           >
                                             <img
-                                              className="object-cover rounded-t-lg h-auto w-24 md:rounded-none md:rounded-l-lg"
+                                              className="object-cover rounded-l-lg h-auto w-24"
                                               src={image}
                                               alt={name}
                                             />
@@ -210,7 +210,7 @@ const CartDetails = () => {
                             </Tab.Panels>
                             <Tab.Panel
                               className={classNames(
-                                "rounded-xl bg-white p-3",
+                                "rounded-xl bg-white dark:bg-slate-900 p-3",
                                 "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
                               )}
                             >

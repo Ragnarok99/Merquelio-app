@@ -179,7 +179,7 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
         </form>
       </div>
       <nav
-        className="flex-1 min-h-0 h-1/2 overflow-y-auto"
+        className="flex-1 min-h-0 h-2/3 overflow-y-auto"
         aria-label="Directory"
       >
         {directory &&
@@ -188,10 +188,13 @@ const ProductList = ({ viewSearch, onViewSearch, onEditCart }: Props) => {
               <div className="z-10 sticky top-0 border-t border-b border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-slate-900 px-6 py-1 text-sm font-medium text-gray-500 dark:text-gray-200">
                 <h3>{letter}</h3>
               </div>
-              <ul role="list" className="relative z-0 divide-y divide-gray-500">
+              <ul
+                role="list"
+                className="relative z-0 divide-y divide-gray-200 dark:divide-gray-500"
+              >
                 {directory[letter].map((product: Product) => (
                   <li key={product.id}>
-                    <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500">
+                    <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 dark:hover:bg-gray-700 focus-within:ring-2 focus-within:ring-inset focus-within:ring-gray-500">
                       <div className="flex-1 min-w-0">
                         <div className="focus:outline-none">
                           <p className="text-sm font-medium text-gray-900">

@@ -13,7 +13,7 @@ const Modal = ({
   onClose,
   isOpen,
   children,
-  modalSize = "max-w-md",
+  modalSize = "max-w-2xl",
   title,
 }: Props) => {
   return (
@@ -43,11 +43,11 @@ const Modal = ({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className={`w-full ${modalSize} transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all`}
+                className={`w-full ${modalSize} transform overflow-hidden rounded-lg bg-white dark:bg-slate-900 p-6 text-left align-middle shadow-xl transition-all`}
               >
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-semibold leading-6 text-gray-900"
+                  className="text-lg font-semibold leading-6 text-gray-700 dark:text-white"
                 >
                   {title}
                 </Dialog.Title>

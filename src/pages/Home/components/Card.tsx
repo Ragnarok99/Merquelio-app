@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 
 interface Props {
   id: string;
+  name: string;
   description: string;
 }
 
-const Card = ({ id }: Props) => {
+const Card = ({ id, name }: Props) => {
   return (
     <div className="w-full sm:max-w-sm bg-white rounded-lg border border-gray-200 dark:bg-slate-900 dark:border-gray-700">
       <div className="flex justify-end px-4 pt-4">
@@ -74,7 +75,7 @@ const Card = ({ id }: Props) => {
           alt="cart"
         />
         <h5 className="mb-1 text-xl font-semibold text-gray-500 dark:text-gray-200">
-          Mercado completo
+          {name}
         </h5>
         <p className="text-sm px-4 text-left text-gray-500 dark:text-gray-200">
           Lorem ipsum dolor sit amet consectetur adiicing elit. Aliquid enim
