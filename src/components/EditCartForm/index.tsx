@@ -54,8 +54,6 @@ const EditCartForm = ({ onSuccess }: Props) => {
     methods.reset(cart.data);
   }, [cart.data]);
 
-  console.log(methods.formState.errors);
-
   const onSubmit = (data: any) => {
     mutation.mutate({ cartId: String(id), data });
   };

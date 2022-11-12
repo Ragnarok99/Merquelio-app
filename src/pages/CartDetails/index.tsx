@@ -20,6 +20,7 @@ import { EditCartForm, Modal } from "../../components";
 import { ProductList } from "./components";
 import { HomeIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { useMediaQuery } from "../../hooks";
+import Logo from "../../components/Logo";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -67,7 +68,7 @@ const CartDetails = () => {
   return (
     <Main>
       <div className="hidden lg:grid grid-cols-3 py-10 px-2">
-        <span>lgogo</span>
+        <Logo />
         <h1 className="text-xl text-center font-medium text-gray-700 dark:text-white">
           {cart.data?.name}
         </h1>
@@ -289,18 +290,8 @@ const CartDetails = () => {
                   </div>
                 </Transition.Child>
                 <div className="h-0 flex-1 overflow-y-auto pt-5 pb-4">
-                  {/* <div className="flex flex-shrink-0 items-center px-4">
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                      alt="Your Company"
-                    />
-                  </div>
-                  <ProductList
-                    onEditCart={() => setIsOpen(true)}
-                    viewSearch={viewSearch}
-                    onViewSearch={setViewSearch}
-                  /> */}
+                  <Logo />
+                  {/* TODO: navigation options here */}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -315,7 +306,7 @@ const CartDetails = () => {
       >
         <EditCartForm onSuccess={onClose} />
       </Modal>
-      <div className="fixed bottom-0 flex h-14 w-full items-center justify-between dark:bg-slate-900 bg-white px-4 dark:text-white text-gray-700 shadow-[0_-2px_3px_rgba(0,0,0,0.6)] shadow-[0_-2px_3px_rgba(0,0,0,0.06)] sm:h-16 md:hidden">
+      <div className="fixed bottom-0 flex h-14 w-full items-center justify-between dark:bg-slate-900 bg-white px-[20%] dark:text-white text-gray-700 shadow-[0_-2px_3px_rgba(0,0,0,0.06)] sm:h-16 md:hidden">
         <button
           onClick={handleScreenChange("home")}
           className={`flex flex-shrink-0 flex-col p-2 w-[36px] items-center justify-center outline-none focus:outline-none ${

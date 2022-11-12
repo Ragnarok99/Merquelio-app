@@ -39,7 +39,7 @@ const ProductRowField = ({ name }: Props) => {
                 type="quantity"
                 id="quantity"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="•••••••••"
+                placeholder="Unidades"
                 {...register(`${name}.${index}.quantity`)}
               />
             </div>
@@ -59,7 +59,7 @@ const ProductRowField = ({ name }: Props) => {
       ) : (
         <div>
           <img className="m-auto" src="/pngs/empty-list.png" alt="empty-list" />
-          <p className="text-gray-900 w-2/3 m-auto text-center font-semibold">
+          <p className="text-gray-700 dark:text-white w-2/3 m-auto text-center font-semibold">
             Oops! no has agregado productos a tu carrito. :(
           </p>
         </div>
